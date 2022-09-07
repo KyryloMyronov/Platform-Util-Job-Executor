@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: accountcorrector
+#  jpa:
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    properties:
+#      hibernate:
+#        cache:
+#          use_second_level_cache: false
+#          use_query_cache: false
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/accountcorrector
+#    username: accountcorrector
+#    password: 34e!lKJOifdd77423#2rT
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  __liquibase:
+#    change-log: classpath:/__liquibase/changelog-master.yml
+  cloud:
+    consul:
+      host: 10.90.16.11
+      discovery.register: false
+      discovery.enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 1
+      permittedNumberOfCallsInHalfOpenState: 1
+      slidingWindowType: COUNT_BASED
+      minimumNumberOfCalls: 1
+      waitDurationInOpenState: 2s
+      failureRateThreshold: 50
+    ACCOUNT:
+      baseConfig: default
+
+#spring.cloud.discovery.client.simple.instances:
+#  accountbalancehistory:
+#    - uri: http://10.90.16.141:40996
+
+
